@@ -1,11 +1,11 @@
 {
-  "name": "@mahyarj/engino-client",
+  "name": "engino-client",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "dev": "webpack-dev-server --inline --hot --host localhost --port 8081 --history-api-fallback",
+    "dev": "webpack-dev-server --inline --host localhost --port 8081 --history-api-fallback",
     "build:production": "cross-env NODE_ENV=production webpack -p"
   },
   "keywords": [],

@@ -3,17 +3,17 @@ require! {
   'browser-sync-webpack-plugin': BrowserSyncPlugin
 }
 
-module.exports = ({projectDir, index}) ->
-  devMode = process.env.NODE_ENV isnt \production
+devMode = process.env.NODE_ENV isnt \production
 
+module.exports =
   entry:
     index:
       if devMode
         'webpack-dev-server/client?http://localhost:8081'
         'webpack/hot/only-dev-server'
-        index
+        './src/index.ls'
       else
-        [index]
+        ['./src/index.ls']
 
   devtool: if devMode then \eval
 
@@ -22,9 +22,8 @@ module.exports = ({projectDir, index}) ->
     fallback:
       [ path.join(__dirname, \node_modules) ]
     alias:
-      '$ens': path.join __dirname, 'src/namespaces'
+      '$ns': path.join __dirname, 'src/namespaces'
       '$engino': path.join __dirname, './'
-      '$ns': path.join projectDir, 'src/namespaces'
 
   plugins:
     * new BrowserSyncPlugin do
@@ -39,14 +38,13 @@ module.exports = ({projectDir, index}) ->
     ...
 
   output:
-    path: path.join projectDir, './dist'
-    filename: '[name].dist.js'
+    path: path.join __dirname, './dist'
+    filename: 'index.dist.js'
     publicPath: '/dist/'  # shows the path from .html file till the .js files for script tag
 
   resolveLoader:
     root:
       path.join __dirname, \node_modules
-      path.join projectDir, \node_modules
 
   module:
     loaders:
